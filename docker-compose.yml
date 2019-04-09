@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+  fluentd:
+    image: fluent/fluentd:v1.3.2
+    restart: always
+    command: >
+      /usr/bin/fluentd -c /fluentd/etc/fluent.conf -v
+    ports:
+      - "127.0.0.1:24224:24224"
+      - "127.0.0.1:24224:24224/udp"
+    volumes:
+      - ${PWD}/log:/fluentd/log
+      - ${PWD}/fluent.conf:/fluentd/etc/fluent.conf:ro
